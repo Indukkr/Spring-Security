@@ -18,6 +18,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  security:
+    user:
+      name: indu
+      password: pass
 #logging:
 #  level:
 #    org.springframework.boot.autoconfigure.security.servlet: DEBUG
