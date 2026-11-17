@@ -1,6 +1,7 @@
 package com.security.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id

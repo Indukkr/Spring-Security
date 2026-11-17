@@ -23,6 +23,8 @@ spring:
       name: indu
       password: pass
       roles[]: {"USER","ADMIN"}
+jwt:
+  secretkey: ThisIsSecretKeyFortheJWTTokenInSecurityIamLearing
 #logging:
 #  level:
 #    org.springframework.boot.autoconfigure.security.servlet: DEBUG
