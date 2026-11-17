@@ -22,6 +22,7 @@ spring:
     user:
       name: indu
       password: pass
+      roles[]: {"USER","ADMIN"}
 #logging:
 #  level:
 #    org.springframework.boot.autoconfigure.security.servlet: DEBUG
