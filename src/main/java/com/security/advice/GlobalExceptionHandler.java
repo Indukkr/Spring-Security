@@ -1,5 +1,6 @@
 package com.security.advice;
 
+import com.security.exception.ResourceAlreadyExistException;
 import com.security.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,14 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(ex.getLocalizedMessage()
                 , HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistException.class)
+    public ResponseEntity<ApiError> handleResourceAlreadyExistException(
+            ResourceAlreadyExistException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage()
+                ,HttpStatus.ALREADY_REPORTED);
+        return new ResponseEntity<>(apiError, HttpStatus.ALREADY_REPORTED);
+
     }
 }
