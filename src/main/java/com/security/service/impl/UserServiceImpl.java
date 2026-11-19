@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found with userId: " + userId +" not found !!"));
+    }
+
+    @Override
     public UserDto signup(SignUpDto signUpDto) {
         userRepository.findByEmail(signUpDto.getEmail())
                 .ifPresent(user -> {
@@ -44,4 +49,5 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserDto.class);
     }
+
 }
