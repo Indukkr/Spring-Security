@@ -9,6 +9,7 @@ import com.security.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -35,7 +36,7 @@ public class PostServiceImpl implements PostService {
                 .getPrincipal();
        log.info("user {user}",user);
        Post post =  postRepository.findById(postId)
-               .orElseThrow(()->new ResourceNotFoundException("Post Not Found with the id : "+postId));
+               .orElseThrow(()->new BadCredentialsException("Post Not Found with the id : "+postId));
         return modelMapper.map(post, PostDto.class);
     }
 
