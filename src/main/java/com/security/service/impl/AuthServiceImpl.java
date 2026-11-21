@@ -1,6 +1,7 @@
 package com.security.service.impl;
 
 import com.security.dto.LoginDto;
+import com.security.dto.LoginResponseDto;
 import com.security.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,12 +15,22 @@ public class AuthServiceImpl {
 
     private final AuthenticationManager authenticationManager;
     private final JwtServiceImpl jwtServiceImpl;
+    private final UserServiceImpl userServiceImpl;
 
-    public String login(LoginDto loginDto) {
+    public LoginResponseDto login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(),
                         loginDto.getPassword()));
         User user = (User) authentication.getPrincipal();
-        return jwtServiceImpl.generateToken(user);
+        String accessToken = jwtServiceImpl.generateAccessToken(user);
+        String refreshToken = jwtServiceImpl.generateRefreshToken(user);
+        return new LoginResponseDto(user.getId(),accessToken,refreshToken);
+    }
+
+    public LoginResponseDto refreshToken(String refreshToken) {
+        Long userId = jwtServiceImpl.getUserIdFromToken(refreshToken);
+        User user = userServiceImpl.getUserById(userId);
+        String accessToken = jwtServiceImpl.generateAccessToken(user);
+        return new LoginResponseDto(user.getId(),accessToken,refreshToken);
     }
 }

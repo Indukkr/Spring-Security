@@ -26,6 +26,9 @@ spring:
 jwt:
   secretkey: ThisIsSecretKeyFortheJWTTokenInSecurityIamLearing
 
+deploy:
+  env: development
+
 logging:
   level:
     org:
